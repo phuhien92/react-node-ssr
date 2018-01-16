@@ -12,6 +12,12 @@
     },
     "author": "",
     "license": "ISC",
+    "keywords": [
+        "node",
+        "heroku",
+        "express",
+        "react"
+    ],
     "dependencies": {
         "axios": "0.17.1",
         "babel-cli": "6.26.0",

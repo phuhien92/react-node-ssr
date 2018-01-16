@@ -6,7 +6,7 @@ import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
 
 const app     = express();
-
+app.set('port', (process.env.PORT || 3000));
 app.use(express.static('public'));
 
 app.get("*", (req,res) => {
@@ -22,6 +22,6 @@ app.get("*", (req,res) => {
     
 })
 
-app.listen(3000, () => {
-    console.log("Listening to port 3000");
+app.listen(app.get('port'), () => {
+    console.log("Listening to port ",app.get('port'));
 })
