@@ -17,7 +17,7 @@ app.use(
     {
         // depend on how to setup API server
         proxyReqOptDecorator(opts) {
-            opts.headers['x-forwarded-host'] = 'localhost:3000';
+            opts.headers['x-forwarded-host'] = process.env.PORT ? 'ssr-demo.herokuapp.com/' : 'localhost:3000';
             return opts;
         }
     }
