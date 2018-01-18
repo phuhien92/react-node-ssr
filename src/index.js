@@ -18,7 +18,7 @@ app.set('port', (process.env.PORT || 3000));
 // through this code
 app.use(
     '/api', 
-    proxy('http://react-ssr-api.herokuapp.com', 
+    proxy('https://react-ssr-api.herokuapp.com', 
     {
         // depend on how to setup API server
         proxyReqOptDecorator(opts) {
@@ -35,7 +35,13 @@ app.get("*", (req,res) => {
 
     const promises = matchRoutes(Routes, req.path).map(({ route }) => {
         return route.loadData ? route.loadData(store) : null;
-    });
+    }).map( promise => {
+        if (promise) {
+            return new Promise((resolve, reject) => {
+                promise.then(resolve).catch(resolve);
+            })
+        }
+    } )
 
     Promise.all(promises).then(() => {
         const context = {};
@@ -46,7 +52,8 @@ app.get("*", (req,res) => {
         } 
 
         res.send(content);
-    });
+    })
+    ;
     
 })
 
