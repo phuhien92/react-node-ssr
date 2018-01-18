@@ -2017,7 +2017,7 @@ express-http-proxy@1.1.0:
     es6-promise "^4.1.1"
     raw-body "^2.3.0"
 
-express@4.16.2, express@^4.16.2:
+express@*, express@4.16.2, express@^4.16.2:
   version "4.16.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.2.tgz#e35c6dfe2d64b7dca0a5cd4f21781be3299e076c"
   dependencies:
@@ -3064,6 +3064,13 @@ loader-utils@^1.0.2, loader-utils@^1.1.0:
     big.js "^3.1.3"
     emojis-list "^2.0.0"
     json5 "^0.5.0"
+
+localhost-ssl@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/localhost-ssl/-/localhost-ssl-0.0.0.tgz#c40964b6ea26d369bfef33b5f2136a0862e538de"
+  dependencies:
+    express "*"
+    underscore "*"
 
 locate-path@^2.0.0:
   version "2.0.0"
@@ -4825,6 +4832,10 @@ undefsafe@^2.0.1:
   resolved "https://registry.yarnpkg.com/undefsafe/-/undefsafe-2.0.1.tgz#03b2f2a16c94556e14b2edef326cd66aaf82707a"
   dependencies:
     debug "^2.2.0"
+
+underscore@*:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
 union-value@^1.0.0:
   version "1.0.0"

@@ -12,14 +12,16 @@ const Header = ({auth}) => {
     )
 
     return (
-        <div>
-            <Link to="/">BRAND</Link>
-            <div>
-                <Link to="/users">Users</Link>
-                <Link to="/admins">Admins</Link>
-                {authButton}
-            </div>
+    <nav>
+        <div className="nav-wrapper">
+            <Link to="/" className="brand-logo">SSR DEMO</Link>
+            <ul className="right">
+                <li><Link to="/users">Users</Link></li>
+                <li><Link to="/admins">Admins</Link></li>
+                <li>{authButton}</li>
+            </ul>
         </div>
+    </nav>
     )
 }
 

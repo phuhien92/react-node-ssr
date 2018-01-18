@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 import express from 'express';
+import https from 'https';
+import fs from 'fs';
 import { matchRoutes } from 'react-router-config';
 import proxy from 'express-http-proxy';
 import Routes from './client/Routes';
@@ -7,17 +9,20 @@ import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
 
 const app     = express();
+const httpsOptions = {
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem')
+}
 app.set('port', (process.env.PORT || 3000));
-
 // setup proxy - any request containing api keyword get forward to api server
 // through this code
 app.use(
     '/api', 
-    proxy('https://react-ssr-api.herokuapp.com', 
+    proxy('http://react-ssr-api.herokuapp.com', 
     {
         // depend on how to setup API server
         proxyReqOptDecorator(opts) {
-            opts.headers['x-forwarded-host'] = process.env.PORT ? 'ssr-demo.herokuapp.com/' : 'localhost:3000';
+            opts.headers['x-forwarded-host'] = process.env.PORT ? 'ssr-demo.herokuapp.com' : 'localhost:3000';
             return opts;
         }
     }
@@ -33,11 +38,26 @@ app.get("*", (req,res) => {
     });
 
     Promise.all(promises).then(() => {
-        res.send(renderer(req, store));
+        const context = {};
+        const content = renderer(req, store, context);
+
+        if (context.notFound) {
+            res.status(404);
+        } 
+
+        res.send(content);
     });
     
 })
 
-app.listen(app.get('port'), () => {
-    console.log("Listening to port ",app.get('port'));
-})
+let secure_connect = false;
+
+if (secure_connect) {
+    https.createServer(httpsOptions, app).listen(app.get('port'), () => {
+        console.log("Listening to port ",app.get('port'));
+    });
+} else {
+    app.listen(app.get('port'), () => {
+        console.log("Listening to port ",app.get('port'));
+    });
+}

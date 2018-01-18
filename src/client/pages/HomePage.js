@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const Home = () => {
+class Home extends Component {
 
-    return (
-        <div>
-            <p>I'm the home component hello1</p>
-            <button onClick={ console.log("hello") }>Click</button>
-        </div>
-    )
+    render() {
+        return (
+            <div className="container">
+                <h3>I'm the home component hello1</h3>
+                <button onClick={() => console.log('hello')}>Click</button>
+            </div>
+        )
+    }
 }
 
 export default {
