@@ -1,6 +1,7 @@
-const path = require('path');
-const merge = require('webpack-merge');
-const baseConfig = require('./webpack.base.js');
+const path          = require('path');
+const merge         = require('webpack-merge');
+const baseConfig    = require('./webpack.base.js');
+const webpack       = require('webpack');
 const webpackNodeExternals = require('webpack-node-externals');
 const config = {
     // Inform webpack that we are bulding a bundle 
@@ -8,12 +9,13 @@ const config = {
     target: 'node',
 
     // Tell webpack the root file of out server app
-    entry: './src/index.js',
-
+    // entry: {
+    //     index: './src/index.js'   
+    // },
     // Tell webpack where to put the output file
     // that is generated
     output: {
-        filename: 'bundle.js',
+        filename: '[name].chunk.js',
         path: path.resolve(__dirname, 'build')
     },
 
